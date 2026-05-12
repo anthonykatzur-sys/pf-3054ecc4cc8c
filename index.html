@@ -1,0 +1,1130 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="robots" content="noindex, nofollow" />
+<title>Projekt Freedom</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --orange: #4F8FFF;
+    --orange-soft: #A8C5FF;
+    --orange-glow: rgba(79, 143, 255, 0.18);
+    --turquoise: #7DD3C4;
+    --turquoise-glow: rgba(125, 211, 196, 0.12);
+    --olive: #8A8470;
+    --beige: #C4B896;
+
+    --bg: #0A0A0B;
+    --bg-elevated: #131316;
+    --bg-elevated-2: #1A1A1E;
+    --bg-deep: #060607;
+
+    --ink: #F5F0E4;
+    --ink-soft: #9B958A;
+    --ink-faint: #5A554D;
+
+    --line: rgba(255, 255, 255, 0.06);
+    --line-strong: rgba(255, 255, 255, 0.12);
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; background: var(--bg); }
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    background: var(--bg);
+    color: var(--ink);
+    font-size: 17px;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  ::selection { background: var(--orange); color: var(--bg); }
+
+  .stripe {
+    display: flex;
+    height: 3px;
+    width: 100%;
+    opacity: 0.85;
+  }
+  .stripe span { flex: 1; }
+  .stripe span:nth-child(1) { background: var(--beige); }
+  .stripe span:nth-child(2) { background: var(--turquoise); }
+  .stripe span:nth-child(3) { background: var(--orange); }
+  .stripe span:nth-child(4) { background: var(--olive); }
+
+  /* HERO */
+  .hero {
+    background:
+      radial-gradient(ellipse 800px 600px at 85% 15%, rgba(79, 143, 255, 0.22) 0%, transparent 60%),
+      radial-gradient(ellipse 700px 500px at 10% 90%, rgba(125, 211, 196, 0.10) 0%, transparent 60%),
+      var(--bg);
+    color: var(--ink);
+    padding: 140px 48px 160px;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background-image:
+      linear-gradient(rgba(255,255,255,0.015) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.015) 1px, transparent 1px);
+    background-size: 64px 64px;
+    pointer-events: none;
+  }
+  .hero-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 2;
+    display: grid;
+    grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr);
+    gap: 80px;
+    align-items: center;
+  }
+  .hero-right {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  .hero-lede {
+    font-size: 17px;
+    line-height: 1.6;
+    color: var(--ink-soft);
+    margin: 0;
+  }
+  .hero-lede strong {
+    color: var(--ink);
+    font-weight: 500;
+  }
+  .hero-stat {
+    padding: 24px 28px;
+    background: linear-gradient(135deg, rgba(79, 143, 255, 0.14), rgba(79, 143, 255, 0.03) 70%);
+    border: 1px solid rgba(79, 143, 255, 0.32);
+    border-radius: 16px;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 0 40px rgba(79, 143, 255, 0.12), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  }
+  .hero-stat::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at 88% 12%, rgba(79, 143, 255, 0.25), transparent 55%);
+    pointer-events: none;
+  }
+  .stat-label {
+    font-size: 10px;
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+    color: var(--orange);
+    font-weight: 600;
+    margin-bottom: 8px;
+    position: relative;
+    z-index: 1;
+  }
+  .stat-number {
+    font-family: 'Fraunces', serif;
+    font-size: clamp(48px, 6vw, 72px);
+    font-weight: 500;
+    line-height: 1;
+    background: linear-gradient(120deg, #C8DAFF 0%, #4F8FFF 50%, #1E5BE0 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    letter-spacing: -0.025em;
+    position: relative;
+    z-index: 1;
+    display: inline-block;
+    padding-right: 0.04em;
+  }
+  .stat-unit {
+    font-size: 0.38em;
+    color: var(--ink-soft);
+    -webkit-text-fill-color: var(--ink-soft);
+    font-weight: 400;
+    margin-left: 8px;
+    letter-spacing: 0;
+    font-style: italic;
+  }
+  .stat-detail {
+    font-size: 13px;
+    color: var(--ink-soft);
+    margin-top: 10px;
+    position: relative;
+    z-index: 1;
+    letter-spacing: 0.02em;
+  }
+  .hero-lede.subtle {
+    font-size: 14px;
+    color: var(--ink-faint);
+    line-height: 1.5;
+    margin-top: 8px;
+  }
+  .hero .eyebrow {
+    font-size: 12px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--orange);
+    margin-bottom: 32px;
+    font-weight: 500;
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .hero .eyebrow::before {
+    content: '';
+    width: 32px;
+    height: 1px;
+    background: var(--orange);
+  }
+  .hero h1 {
+    font-family: 'Fraunces', Georgia, serif;
+    font-size: clamp(56px, 7vw, 112px);
+    line-height: 0.9;
+    font-weight: 500;
+    letter-spacing: -0.04em;
+    margin-bottom: 40px;
+    color: var(--ink);
+  }
+  .hero h1 span {
+    background: linear-gradient(120deg, #A8C5FF 0%, #4F8FFF 60%, #1E5BE0 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-style: italic;
+    font-weight: 400;
+    display: inline-block;
+    padding-right: 0.08em;
+  }
+  .hero .meta {
+    display: flex;
+    gap: 56px;
+    margin-top: 72px;
+    flex-wrap: wrap;
+    font-size: 14px;
+    padding-top: 32px;
+    border-top: 1px solid var(--line-strong);
+  }
+  .hero .meta div span {
+    display: block;
+    font-size: 10px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    margin-bottom: 8px;
+    font-weight: 500;
+  }
+  .hero .meta div strong {
+    font-weight: 500;
+    color: var(--ink);
+    font-size: 15px;
+    font-family: 'Fraunces', serif;
+  }
+
+  /* PULL QUOTE */
+  .pullquote {
+    background: var(--bg-deep);
+    padding: 120px 48px;
+    border-top: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+    position: relative;
+    overflow: hidden;
+  }
+  .pullquote::before {
+    content: '';
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    width: 600px; height: 600px;
+    background: radial-gradient(circle, rgba(79, 143, 255, 0.08) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .pullquote-inner {
+    max-width: 900px;
+    margin: 0 auto;
+    text-align: center;
+    position: relative;
+    z-index: 2;
+  }
+  .pullquote blockquote {
+    font-family: 'Fraunces', Georgia, serif;
+    font-size: clamp(26px, 3.8vw, 44px);
+    line-height: 1.25;
+    font-weight: 400;
+    color: var(--ink);
+    letter-spacing: -0.015em;
+  }
+  .pullquote blockquote em {
+    font-style: italic;
+    color: var(--orange-soft);
+  }
+  .pullquote blockquote::before {
+    content: '„';
+    color: var(--orange);
+    font-size: 1.3em;
+    line-height: 0;
+    vertical-align: -0.1em;
+    margin-right: 4px;
+  }
+  .pullquote blockquote::after {
+    content: '"';
+    color: var(--orange);
+    font-size: 1.3em;
+    line-height: 0;
+    vertical-align: -0.1em;
+  }
+  .pullquote cite {
+    display: block;
+    margin-top: 40px;
+    font-style: normal;
+    font-size: 11px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    font-weight: 500;
+  }
+
+  /* SECTION */
+  section.block {
+    padding: 140px 48px;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+  .section-head {
+    display: flex;
+    align-items: baseline;
+    gap: 28px;
+    margin-bottom: 64px;
+  }
+  .section-head .num {
+    font-family: 'Fraunces', serif;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--orange);
+    letter-spacing: 0.15em;
+  }
+  .section-head h2 {
+    font-family: 'Fraunces', serif;
+    font-size: clamp(40px, 5.5vw, 64px);
+    font-weight: 500;
+    letter-spacing: -0.025em;
+    color: var(--ink);
+    line-height: 1;
+  }
+  .lede {
+    font-size: 21px;
+    line-height: 1.55;
+    color: var(--ink-soft);
+    max-width: 760px;
+    margin-bottom: 32px;
+    font-weight: 400;
+  }
+  .lede strong { color: var(--ink); font-weight: 500; }
+
+  /* ZIELE — Cards */
+  .ziele-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 16px;
+    margin-top: 24px;
+  }
+  .ziel-card {
+    background: var(--bg-elevated);
+    padding: 36px 32px;
+    border-radius: 16px;
+    border: 1px solid var(--line);
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    position: relative;
+    overflow: hidden;
+  }
+  .ziel-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(79,143,255,0.4), transparent);
+    opacity: 0;
+    transition: opacity 0.4s ease;
+  }
+  .ziel-card:hover {
+    transform: translateY(-6px);
+    background: var(--bg-elevated-2);
+    border-color: var(--line-strong);
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5), 0 0 40px var(--orange-glow);
+  }
+  .ziel-card:hover::before { opacity: 1; }
+  .ziel-card .num {
+    font-family: 'Fraunces', serif;
+    font-size: 14px;
+    line-height: 1;
+    color: var(--orange);
+    font-weight: 500;
+    letter-spacing: 0.15em;
+    margin-bottom: 24px;
+    display: block;
+  }
+  .ziel-card h3 {
+    font-family: 'Fraunces', serif;
+    font-size: 24px;
+    font-weight: 500;
+    margin: 0 0 12px;
+    color: var(--ink);
+    letter-spacing: -0.01em;
+  }
+  .ziel-card p {
+    font-size: 15px;
+    color: var(--ink-soft);
+    line-height: 1.6;
+  }
+  .ziel-card p strong { color: var(--ink); font-weight: 500; }
+
+  /* ZEITSTRAHL */
+  .timeline {
+    position: relative;
+    margin-top: 32px;
+  }
+  .timeline-track {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 36px;
+    height: 1px;
+    background: linear-gradient(to right, var(--beige), var(--turquoise), var(--orange), var(--olive));
+    opacity: 0.5;
+  }
+  .phases {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+    position: relative;
+  }
+  .phase {
+    position: relative;
+    padding-top: 70px;
+  }
+  .phase .dot {
+    position: absolute;
+    top: 28px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 16px;
+    height: 16px;
+    background: var(--bg);
+    border: 2px solid var(--orange);
+    border-radius: 50%;
+    z-index: 2;
+    box-shadow: 0 0 0 4px var(--bg), 0 0 20px var(--orange-glow);
+  }
+  .phase:nth-child(1) .dot { border-color: var(--beige); box-shadow: 0 0 0 4px var(--bg); }
+  .phase:nth-child(2) .dot { border-color: var(--turquoise); box-shadow: 0 0 0 4px var(--bg), 0 0 20px var(--turquoise-glow); }
+  .phase:nth-child(3) .dot { border-color: var(--olive); box-shadow: 0 0 0 4px var(--bg); }
+  .phase:nth-child(4) .dot { border-color: var(--orange); background: var(--orange); box-shadow: 0 0 0 4px var(--bg), 0 0 30px var(--orange); }
+  .phase .when {
+    font-size: 10px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    font-weight: 600;
+    text-align: center;
+    margin-bottom: 14px;
+  }
+  .phase .what {
+    background: var(--bg-elevated);
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    padding: 22px 20px;
+    font-size: 14px;
+    line-height: 1.5;
+    transition: all 0.3s ease;
+  }
+  .phase:hover .what {
+    border-color: var(--line-strong);
+    background: var(--bg-elevated-2);
+  }
+  .phase .what ul {
+    list-style: none;
+    padding: 0;
+  }
+  .phase .what li {
+    padding: 5px 0;
+    color: var(--ink-soft);
+  }
+  .phase .what li strong { color: var(--ink); font-weight: 500; }
+  .phase .what li::before {
+    content: '·';
+    color: var(--orange);
+    margin-right: 10px;
+    font-weight: 700;
+  }
+  .phase.thailand .what {
+    background: linear-gradient(135deg, rgba(79,143,255,0.15), rgba(125,211,196,0.08));
+    border: 1px solid rgba(79,143,255,0.3);
+  }
+  .phase.thailand .what li { color: var(--ink); }
+  .phase.thailand .what li::before { color: var(--turquoise); }
+
+  /* MEILENSTEINE */
+  .milestones {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 20px;
+  }
+  .milestone {
+    background: var(--bg-elevated);
+    border: 1px solid var(--line);
+    border-radius: 16px;
+    padding: 40px 36px;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .milestone::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 3px;
+    height: 100%;
+    background: var(--orange);
+  }
+  .milestone:nth-child(1)::before { background: var(--beige); }
+  .milestone:nth-child(2)::before { background: var(--turquoise); }
+  .milestone:nth-child(3)::before { background: var(--orange); }
+  .milestone:nth-child(4)::before { background: var(--olive); }
+  .milestone:hover {
+    transform: translateY(-4px);
+    background: var(--bg-elevated-2);
+    border-color: var(--line-strong);
+  }
+  .milestone .roman {
+    font-family: 'Fraunces', serif;
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--orange);
+    letter-spacing: 0.2em;
+    margin-bottom: 16px;
+  }
+  .milestone h3 {
+    font-family: 'Fraunces', serif;
+    font-size: 28px;
+    font-weight: 500;
+    margin-bottom: 18px;
+    color: var(--ink);
+    line-height: 1.15;
+    letter-spacing: -0.015em;
+  }
+  .milestone p {
+    font-size: 15px;
+    line-height: 1.65;
+    color: var(--ink-soft);
+  }
+
+  /* ACTION STEPS */
+  .actions {
+    background: var(--bg-deep);
+    padding: 140px 48px;
+    border-top: 1px solid var(--line);
+  }
+  .actions-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+  .actions-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 56px;
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+  .progress-pill {
+    background: var(--bg-elevated);
+    padding: 12px 22px;
+    border-radius: 999px;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--ink-soft);
+    border: 1px solid var(--line);
+    font-family: 'Fraunces', serif;
+  }
+  .progress-pill strong { color: var(--orange); font-weight: 600; }
+  .phase-group {
+    margin-bottom: 56px;
+  }
+  .phase-group h4 {
+    font-family: 'Fraunces', serif;
+    font-size: 24px;
+    font-weight: 500;
+    color: var(--ink);
+    margin-bottom: 10px;
+    letter-spacing: -0.01em;
+  }
+  .phase-group .when-small {
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--orange);
+    font-weight: 600;
+    margin-bottom: 24px;
+  }
+  .check-list {
+    list-style: none;
+  }
+  .check-list li {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    padding: 16px 20px;
+    background: var(--bg-elevated);
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    margin-bottom: 8px;
+    cursor: pointer;
+    transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    user-select: none;
+  }
+  .check-list li:hover {
+    border-color: rgba(79, 143, 255, 0.4);
+    background: var(--bg-elevated-2);
+    transform: translateX(4px);
+  }
+  .check-list li.done {
+    opacity: 0.4;
+    background: transparent;
+    border-color: transparent;
+  }
+  .check-list li.done:hover { transform: none; }
+  .check-list li.done .check-text {
+    text-decoration: line-through;
+    color: var(--ink-faint);
+  }
+  .check-box {
+    width: 22px;
+    height: 22px;
+    border: 1.5px solid var(--ink-faint);
+    border-radius: 6px;
+    flex-shrink: 0;
+    margin-top: 1px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+  }
+  .check-list li:hover .check-box {
+    border-color: var(--orange);
+  }
+  .check-list li.done .check-box {
+    background: var(--orange);
+    border-color: var(--orange);
+    box-shadow: 0 0 20px var(--orange-glow);
+  }
+  .check-box svg {
+    width: 13px;
+    height: 13px;
+    opacity: 0;
+    transition: opacity 0.2s ease;
+    stroke: var(--bg);
+  }
+  .check-list li.done .check-box svg { opacity: 1; }
+  .check-text {
+    font-size: 15px;
+    line-height: 1.55;
+    color: var(--ink);
+  }
+  .check-text strong { color: var(--orange); font-weight: 500; }
+
+  /* FOOTER */
+  footer {
+    background: var(--bg-deep);
+    color: var(--ink-faint);
+    padding: 80px 48px;
+    text-align: center;
+    font-size: 13px;
+    border-top: 1px solid var(--line);
+    position: relative;
+    overflow: hidden;
+  }
+  footer::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 50%;
+    transform: translateX(-50%);
+    width: 1px; height: 60px;
+    background: linear-gradient(to bottom, var(--orange), transparent);
+  }
+  footer p { margin-bottom: 8px; }
+  footer .signoff {
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-size: 24px;
+    color: var(--ink);
+    margin-bottom: 24px;
+    font-weight: 400;
+    letter-spacing: -0.01em;
+  }
+  footer .signoff em {
+    background: linear-gradient(120deg, #A8C5FF 0%, #4F8FFF 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  /* RESPONSIVE */
+  @media (max-width: 900px) {
+    .hero-inner { grid-template-columns: 1fr; gap: 48px; }
+  }
+  @media (max-width: 800px) {
+    .hero { padding: 96px 24px 100px; }
+    .pullquote { padding: 80px 24px; }
+    section.block { padding: 96px 24px; }
+    .actions { padding: 96px 24px; }
+    footer { padding: 56px 24px; }
+    .phases { grid-template-columns: 1fr; gap: 12px; }
+    .timeline-track { display: none; }
+    .phase { padding-top: 0; }
+    .phase .dot { display: none; }
+    .phase .when {
+      text-align: left;
+      color: var(--orange);
+      margin-bottom: 8px;
+    }
+    .section-head { flex-direction: column; gap: 8px; }
+    .hero .meta { gap: 32px; }
+  }
+
+  /* TOP NAV */
+  .topnav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(10, 10, 11, 0.82);
+    backdrop-filter: blur(24px) saturate(1.4);
+    -webkit-backdrop-filter: blur(24px) saturate(1.4);
+    border-bottom: 1px solid var(--line);
+  }
+  .topnav-inner {
+    max-width: 1400px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 16px 32px;
+    position: relative;
+    min-height: 60px;
+  }
+  .brand {
+    font-family: 'Fraunces', serif;
+    font-size: 15px;
+    font-weight: 500;
+    color: var(--ink-soft);
+    cursor: pointer;
+    text-decoration: none;
+    letter-spacing: -0.01em;
+    transition: color 0.2s ease;
+    background: none;
+    border: none;
+    position: absolute;
+    left: 32px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-family: inherit;
+  }
+  .brand:hover { color: var(--ink); }
+  .tabs {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .tab {
+    padding: 10px 18px;
+    font-size: 14px;
+    color: var(--ink-soft);
+    cursor: pointer;
+    border-radius: 10px;
+    transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    font-weight: 500;
+    background: transparent;
+    border: 1px solid transparent;
+    font-family: inherit;
+    letter-spacing: 0;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    line-height: 1.2;
+  }
+  .tab-emoji {
+    font-size: 16px;
+    line-height: 1;
+  }
+  .tab:hover {
+    color: var(--ink);
+    background: var(--bg-elevated);
+  }
+  .tab.active {
+    color: var(--ink);
+    background: rgba(79, 143, 255, 0.16);
+    border-color: rgba(79, 143, 255, 0.35);
+    box-shadow: 0 0 24px rgba(79, 143, 255, 0.15);
+  }
+
+  /* PAGES */
+  .page {
+    display: none;
+    animation: fadeIn 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .page.active { display: block; }
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @media (max-width: 800px) {
+    .topnav-inner { padding: 12px 16px; gap: 10px; flex-direction: column; align-items: stretch; min-height: 0; }
+    .brand { position: static; transform: none; text-align: center; }
+    .tabs {
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      flex-wrap: nowrap;
+      scrollbar-width: none;
+      justify-content: flex-start;
+    }
+    .tabs::-webkit-scrollbar { display: none; }
+    .tab {
+      white-space: nowrap;
+      flex-shrink: 0;
+      padding: 8px 14px;
+      font-size: 13px;
+    }
+  }
+
+  @media print {
+    body { background: white; color: black; font-size: 13px; }
+    .hero { background: white; color: black; padding: 40px 0; }
+    .hero h1, .hero .meta div strong, .section-head h2, .ziel-card h3, .milestone h3, .phase-group h4, .check-text { color: black; }
+    .hero h1 span { -webkit-text-fill-color: var(--orange); }
+    .lede, .ziel-card p, .milestone p { color: #444; }
+    .ziel-card, .milestone, .phase .what, .check-list li, .progress-pill { background: white; border-color: #ddd; }
+    .actions, .pullquote, footer { background: white; color: black; }
+    .check-list li { break-inside: avoid; }
+    section.block { padding: 40px 0; }
+  }
+</style>
+</head>
+<body>
+
+<nav class="topnav">
+  <div class="topnav-inner">
+    <button class="brand" data-tab="overview">Projekt Freedom</button>
+    <div class="tabs">
+      <button class="tab active" data-tab="overview"><span class="tab-emoji">🧭</span> Übersicht</button>
+      <button class="tab" data-tab="situation"><span class="tab-emoji">⚡</span> Situation</button>
+      <button class="tab" data-tab="ziele"><span class="tab-emoji">🎯</span> Ziele</button>
+      <button class="tab" data-tab="zeitstrahl"><span class="tab-emoji">📅</span> Zeitstrahl</button>
+      <button class="tab" data-tab="meilensteine"><span class="tab-emoji">🏁</span> Meilensteine</button>
+      <button class="tab" data-tab="actions"><span class="tab-emoji">🚀</span> Action Steps</button>
+    </div>
+  </div>
+</nav>
+
+<main>
+
+<div class="page active" data-page="overview">
+
+<div class="stripe"><span></span><span></span><span></span><span></span></div>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-left">
+      <div class="eyebrow">Anthony &amp; Noah · Strategie-Doc</div>
+      <h1>Projekt<br><span>Freedom</span></h1>
+      <div class="meta">
+        <div><span>Datum</span><strong>11. Mai 2026</strong></div>
+        <div><span>Horizont</span><strong>Mai 2026 → Thailand November</strong></div>
+        <div><span>Status</span><strong>Entwurf v1</strong></div>
+      </div>
+    </div>
+    <div class="hero-right">
+      <p class="hero-lede">
+        <strong>Projekt Freedom</strong> ist der Plan, in <strong>kompletter Freiheit</strong> zu leben, getragen von einem fully remote Einkommen, das wir uns gemeinsam durch Passion aufbauen. Ein klares Ziel: ein Leben, das wir aktiv gestalten, statt es passieren zu lassen.
+      </p>
+      <div class="hero-stat">
+        <div class="stat-label">Die Zahl</div>
+        <div class="stat-number">100K<span class="stat-unit">/ Jahr</span></div>
+        <div class="stat-detail">gemeinsam · Juni zu Juni · fully remote</div>
+      </div>
+      <p class="hero-lede subtle">
+        Dieses Dokument ist unser Kompass &mdash; was wir vorhaben, in welcher Reihenfolge, und woran wir merken, dass wir auf Kurs sind.
+      </p>
+    </div>
+  </div>
+</section>
+
+<div class="stripe"><span></span><span></span><span></span><span></span></div>
+
+
+</div><!-- /overview -->
+
+<div class="page" data-page="situation">
+
+<div class="stripe"><span></span><span></span><span></span><span></span></div>
+
+<!-- SITUATION AKTUELL -->
+<section class="block">
+  <div class="section-head">
+    <div class="num">02</div>
+    <h2>Situation aktuell</h2>
+  </div>
+  <p class="lede">
+    Langfristig in Deutschland angestellt zu bleiben, führt nicht zu der <strong>Freiheit</strong>, die wir uns vorstellen.
+  </p>
+  <p class="lede">
+    Gleichzeitig wird klarer: <strong>die Zeit läuft.</strong> Das Gefühl, dass das Leben vorbeizieht, während man noch auf den richtigen Moment wartet, ist real. Die Antwort darauf ist nicht warten, sondern handeln. Diese Selbstständigkeit ist für uns beide das Mittel zum Zweck, dieses Leben in <strong>kompletter Fülle und Freiheit</strong> zu leben. Zu inspirieren, zu motivieren und vor allem aufzuhören zu stagnieren.
+  </p>
+</section>
+
+</div><!-- /situation -->
+
+<div class="page" data-page="ziele">
+
+<div class="stripe"><span></span><span></span><span></span><span></span></div>
+
+<!-- ZIELE -->
+<section class="block">
+  <div class="section-head">
+    <div class="num">03</div>
+    <h2>Ziele</h2>
+  </div>
+  <p class="lede">Was am Ende stehen muss, damit das Projekt erfolgreich war.</p>
+  <div class="ziele-grid">
+    <div class="ziel-card">
+      <div class="num">01</div>
+      <h3>Arbeitsort</h3>
+      <p>Remote &mdash; ortsunabhängig, planbar, ohne Einzelkunden-Abhängigkeit, die uns physisch bindet.</p>
+    </div>
+    <div class="ziel-card">
+      <div class="num">02</div>
+      <h3>Einkommen</h3>
+      <p>Mehr als <strong>100K</strong> im Jahr (Juni&ndash;Juni). Nicht aspirational. Das ist der Floor.</p>
+    </div>
+    <div class="ziel-card">
+      <div class="num">03</div>
+      <h3>Anerkennung &amp; Respekt</h3>
+      <p>Mit Stolz von dem sprechen können, was man tut. Etwas aufbauen, das beeindruckt.</p>
+    </div>
+    <div class="ziel-card">
+      <div class="num">04</div>
+      <h3>Einfluss &amp; Reichweite</h3>
+      <p>Zeigen, wie wir leben &mdash; als offenes Nebenprojekt, nicht als Einkommensquelle. Wer mitbekommt, was wir bauen, soll Lust kriegen, eigene Wege zu gehen.</p>
+    </div>
+    <div class="ziel-card">
+      <div class="num">05</div>
+      <h3>Passion</h3>
+      <p>Essentiell. Es muss ein Grund sein, morgens aufzustehen. Teil der Persönlichkeit, nicht nur des Jobs.</p>
+    </div>
+  </div>
+</section>
+
+</div><!-- /ziele -->
+
+<div class="page" data-page="zeitstrahl">
+
+<div class="stripe"><span></span><span></span><span></span><span></span></div>
+
+<!-- ZEITSTRAHL -->
+<section class="block">
+  <div class="section-head">
+    <div class="num">04</div>
+    <h2>Zeitstrahl</h2>
+  </div>
+  <p class="lede">Fünf Phasen von hier bis Thailand. Jede Phase hat ein klares Ende &mdash; sonst zerfließt sie.</p>
+  <div class="timeline">
+    <div class="timeline-track"></div>
+    <div class="phases">
+      <div class="phase">
+        <div class="dot"></div>
+        <div class="when">Mitte Mai &ndash; Juni</div>
+        <div class="what">
+          <ul>
+            <li>Businessplan</li>
+            <li>Finanzplan</li>
+            <li>Zuschuss beantragen</li>
+            <li>Unternehmen anmelden</li>
+            <li>Office buchen</li>
+            <li>Office einrichten</li>
+            <li><strong>Erster Arbeitstag</strong></li>
+          </ul>
+        </div>
+      </div>
+      <div class="phase">
+        <div class="dot"></div>
+        <div class="when">Juni &ndash; Mitte Juni</div>
+        <div class="what">
+          <ul>
+            <li>Ersten Auftraggeber gewinnen</li>
+            <li>Erstes Geld verdient</li>
+          </ul>
+        </div>
+      </div>
+      <div class="phase">
+        <div class="dot"></div>
+        <div class="when">Juli &ndash; Oktober</div>
+        <div class="what">
+          <ul>
+            <li>Revue passieren des ersten Monats</li>
+            <li>weiter Gas geben</li>
+          </ul>
+        </div>
+      </div>
+      <div class="phase thailand">
+        <div class="dot"></div>
+        <div class="when">Ab November</div>
+        <div class="what">
+          <ul>
+            <li>Thailand 🌴</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+</div><!-- /zeitstrahl -->
+
+<div class="page" data-page="meilensteine">
+
+<div class="stripe"><span></span><span></span><span></span><span></span></div>
+
+<!-- MEILENSTEINE -->
+<section class="block">
+  <div class="section-head">
+    <div class="num">05</div>
+    <h2>Meilensteine</h2>
+  </div>
+  <p class="lede">Vier Checkpoints, an denen wir wissen: wir sind weitergekommen. Nicht früher feiern.</p>
+  <div class="milestones">
+    <div class="milestone">
+      <div class="roman">I</div>
+      <h3>Unternehmen angemeldet</h3>
+      <p>Rechtsform gewählt, Gewerbe angemeldet, Steuer- und Banksachen aufgesetzt. Die formale Basis steht &mdash; ab jetzt sind wir wieder offiziell unsere eigenen Chefs.</p>
+    </div>
+    <div class="milestone">
+      <div class="roman">II</div>
+      <h3>Zuschuss erhalten</h3>
+      <p>Gründungszuschuss bewilligt. Erste externe Liquidität im System &mdash; Runway, um die Aufbauphase zu fahren, ohne den ersten Kunden überstürzt nehmen zu müssen.</p>
+    </div>
+    <div class="milestone">
+      <div class="roman">III</div>
+      <h3>Erster Auftraggeber</h3>
+      <p>Erster unterzeichneter Vertrag. Der Proof, dass das Modell trägt &mdash; wir können verkaufen, ohne das Angestellten-Sicherheitsnetz. Identität als Unternehmer ist nicht mehr theoretisch.</p>
+    </div>
+    <div class="milestone">
+      <div class="roman">IV</div>
+      <h3>Erstes Geld verdient</h3>
+      <p>Erste Rechnung bezahlt, Geld auf dem Konto. Cashflow läuft &mdash; ab hier baut jeder Auftrag das Thailand-Polster auf.</p>
+    </div>
+  </div>
+</section>
+
+</div><!-- /meilensteine -->
+
+<div class="page" data-page="actions">
+
+<div class="stripe"><span></span><span></span><span></span><span></span></div>
+
+<!-- ACTION STEPS -->
+<section class="actions" id="actions">
+  <div class="actions-inner">
+    <div class="section-head">
+      <div class="num">06</div>
+      <h2>Action Steps</h2>
+    </div>
+    <div class="actions-meta">
+      <p class="lede" style="margin: 0;">Was abgehakt sein muss, bis das Ding läuft.</p>
+      <div class="progress-pill"><strong id="progress-count">0</strong> von <span id="progress-total">0</span> erledigt</div>
+    </div>
+
+    <div class="phase-group">
+      <h4>Meilensteine</h4>
+      <ul class="check-list">
+        <li data-id="m-1"><div class="check-box"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div><div class="check-text">Planung aufgestellt</div></li>
+        <li data-id="m-2"><div class="check-box"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div><div class="check-text">Zuschuss angefragt</div></li>
+        <li data-id="m-3"><div class="check-box"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div><div class="check-text">Unternehmen angemeldet</div></li>
+        <li data-id="m-4"><div class="check-box"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div><div class="check-text">Geschäftskonto eröffnet</div></li>
+        <li data-id="m-5"><div class="check-box"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div><div class="check-text">Office gefunden</div></li>
+        <li data-id="m-6"><div class="check-box"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div><div class="check-text">Office gebucht</div></li>
+        <li data-id="m-7"><div class="check-box"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div><div class="check-text">Technisches Setup vorhanden</div></li>
+        <li data-id="m-8"><div class="check-box"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div><div class="check-text">Auftraggeber gefunden</div></li>
+        <li data-id="m-9"><div class="check-box"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div><div class="check-text">Ersten Umsatz gemacht</div></li>
+      </ul>
+    </div>
+
+    <div class="phase-group">
+      <h4>Finanzplanung</h4>
+      <div class="when-small">Wächst laufend</div>
+      <ul class="check-list">
+        <li data-id="f-1"><div class="check-box"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div><div class="check-text">Finanzplanung aufgestellt</div></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<div class="stripe"><span></span><span></span><span></span><span></span></div>
+
+<!-- FOOTER -->
+<footer>
+  <p class="signoff">„Wir machen es jetzt."</p>
+  <p>Projekt Freedom · Anthony &amp; Noah · v1 · 11.05.2026</p>
+  <p style="opacity: 0.5; margin-top: 16px;">Privates Strategie-Dokument. Nicht zur Weitergabe.</p>
+</footer>
+
+</div><!-- /actions -->
+
+</main>
+
+<script>
+  // Persist checkbox state in localStorage
+  const STORAGE_KEY = 'projekt-freedom-v1';
+  const items = document.querySelectorAll('.check-list li');
+  const state = JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}');
+
+  function updateProgress() {
+    const total = items.length;
+    const done = Object.values(state).filter(v => v).length;
+    document.getElementById('progress-count').textContent = done;
+    document.getElementById('progress-total').textContent = total;
+  }
+
+  items.forEach(li => {
+    const id = li.dataset.id;
+    if (state[id]) li.classList.add('done');
+    li.addEventListener('click', () => {
+      li.classList.toggle('done');
+      state[id] = li.classList.contains('done');
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+      updateProgress();
+    });
+  });
+
+  updateProgress();
+
+  // Tab switching
+  document.querySelectorAll('[data-tab]').forEach(el => {
+    el.addEventListener('click', (e) => {
+      e.preventDefault();
+      const tab = el.dataset.tab;
+      document.querySelectorAll('.tab').forEach(t => t.classList.toggle('active', t.dataset.tab === tab));
+      document.querySelectorAll('.page').forEach(p => p.classList.toggle('active', p.dataset.page === tab));
+      window.scrollTo({ top: 0, behavior: 'instant' });
+    });
+  });
+</script>
+
+</body>
+</html>
