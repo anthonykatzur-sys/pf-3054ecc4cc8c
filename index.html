@@ -1215,7 +1215,7 @@
   updateProgress();
 
   // Lock screen unlock
-  const PASSWORD_HASH = '3234e745e6c595b13c863624a1941c77340f6d1e59672470205a29dc5e2db52b';
+  const PASSWORD_HASH = '09602b06fb74025b5e751d8661aac5010f67e4decd9f589f1c163924f6406fff';
   async function sha256(str) {
     const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(str));
     return Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2,'0')).join('');
